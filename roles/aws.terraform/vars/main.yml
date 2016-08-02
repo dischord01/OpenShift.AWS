@@ -1,0 +1,6 @@
+# file: roles/aws.terraform/vars/main.yml
+---
+
+# AWS API Keys for terraform.tfvars file
+aws_access_key: ""
+aws_secret_key: ""

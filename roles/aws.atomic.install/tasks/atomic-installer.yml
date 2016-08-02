@@ -1,0 +1,60 @@
+---
+# use atomic-installer advanced method. (https://docs.openshift.com/enterprise/3.2/install_config/install/advanced_install.html)
+
+
+- name: Run atomic installer (advanced method) ansible-playbook 
+  shell: ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i inventory_ose /usr/share/ansible/openshift-ansible/playbooks/byo/config.yml chdir=/home/ec2-user  
+  tags:
+   - atomic 
+
+- name: Curl get pip
+  become: yes
+  command: curl "https://bootstrap.pypa.io/get-pip.py" -o "get-pip.py" chdir=/home/ec2-user
+  tags:
+   - atomic
+
+- name: Python install pip
+  become: yes
+  command: python /home/ec2-user/get-pip.py chdir=/home/ec2-user  
+  tags:
+   - atomic
+
+- name: Install passlib
+  become: yes
+  pip: name=passlib state=present
+  tags:
+   - atomic
+
+- name: Set a password for admin
+  become: yes
+  htpasswd: name=admin  password=Containers!  path=/etc/origin/master/htpasswd  state=present 
+  tags:
+   - atomic
+
+# - name: Update namespace default
+
+#----------------------------------------------------------------------------------------
+
+# Please edit the object below. Lines beginning with a '#' will be ignored,
+# and an empty file will abort the edit. If an error occurs while saving this file will be
+# reopened with the relevant failures.
+#
+# apiVersion: v1
+# kind: Namespace
+# metadata:
+#   annotations:
+#     openshift.io/node-selector: ""
+#     openshift.io/sa.scc.mcs: s0:c1,c0
+#     openshift.io/sa.scc.supplemental-groups: 1000000000/10000
+#     openshift.io/sa.scc.uid-range: 1000000000/10000
+#   creationTimestamp: 2016-08-02T15:25:25Z
+#   name: default
+#   resourceVersion: "613"
+#   selfLink: /api/v1/namespaces/default
+#   uid: 55c0e8a9-58c5-11e6-bd42-0e22048e31f3
+# spec:
+#   finalizers:
+#   - kubernetes
+#   - openshift.io/origin
+# status:
+#   phase: Active

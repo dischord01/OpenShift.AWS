@@ -1,0 +1,7 @@
+# file: roles/aws.prep.nodes/vars/main.yml
+---
+
+# RHEL Subscription Info:
+username: ""
+password: ""
+pool_id: ""

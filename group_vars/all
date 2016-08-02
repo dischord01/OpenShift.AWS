@@ -1,0 +1,5 @@
+# file: group_vars/atlanta
+#
+
+domain_name: "cloudworks.io"
+zone_id: "Z17WRPJRU4K2P"

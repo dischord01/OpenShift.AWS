@@ -1,0 +1,40 @@
+# Create an OSEv3 group that contains the masters and nodes groups
+[OSEv3:children]
+masters
+nodes
+# etcd
+# lb
+[OSEv3:vars]
+ansible_ssh_user=ec2-user
+ansible_become=yes
+# Debug level for all OpenShift components (Defaults to 2)
+debug_level=2
+# deployment type valid values are origin, online, atomic-enterprise, and openshift-enterprise
+deployment_type=openshift-enterprise
+openshift_release=v3.2
+# Install the openshift examples
+openshift_install_examples=true
+# htpasswd auth
+openshift_master_identity_providers=[{'name': 'htpasswd_auth', 'login': 'true', 'challenge': 'true', 'kind': 'HTPasswdPasswordIdentityProvider', 'filename': '/etc/origin/master/htpasswd'}]
+# default subdomain to use for exposed routes
+openshift_master_default_subdomain=apps.ose.{{ domain_name }}
+# host group for masters
+[masters]
+master.ose.{{ domain_name }} openshift_public_hostname=master.ose.{{ domain_name }}
+# [etcd]
+# ose3-etcd[1:3].ose.{{ domain_name }}
+# [lb]
+# ose3-lb.ose.{{ domain_name }}
+[nodes]
+{% for host in inventory_ose_nodes %}
+{% if (hostvars[host]['inventory_hostname'] | match("master") ) %}
+{{ hostvars[host]['inventory_hostname'] }} ip={{ hostvars[host].ansible_default_ipv4.address }} public_ip={{ hostvars[host]['ansible_ec2_public_ipv4'] }} openshift_node_labels="{'region': 'infra', 'zone': 'default'}" openshift_schedulable=true
+{% endif %}
+{% endfor %}
+
+
+{% for host in inventory_ose_nodes %}
+{% if (hostvars[host]['inventory_hostname'] | match("node")) %}
+{{ hostvars[host]['inventory_hostname'] }} ip={{ hostvars[host].ansible_default_ipv4.address }} public_ip={{ hostvars[host]['ansible_ec2_public_ipv4'] }} openshift_node_labels="{'region': 'primary', 'zone': 'default'}"
+{% endif %}
+{% endfor %}
