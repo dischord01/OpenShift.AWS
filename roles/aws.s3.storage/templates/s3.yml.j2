@@ -1,0 +1,17 @@
+storage:
+  cache:
+    layerinfo: inmemory
+  delete:
+    enabled: true
+  s3:
+    accesskey: {{ aws_access_key_s3 }}
+    secretkey: {{ aws_secret_key_s3 }}
+    region: {{ aws_region }}
+    regionendpoint: http://myobjects.local
+    bucket: openshift_storage
+    encrypt: true
+    keyid: id_rsa
+    secure: true
+    v4auth: false
+    chunksize: 5242880
+    rootdirectory: /s3/object/name/prefix

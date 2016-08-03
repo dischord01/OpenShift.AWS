@@ -204,11 +204,48 @@ resource "aws_route53_record" "wildcard" {
   name = "*.apps.ose.{{ domain_name }}"
   records = ["${aws_instance.ose-master.public_ip}"]
 }
-
 #zone_id = "${aws_route53_zone.cloudworks.zone_id}"
 
 
+#----------------------------------------------
+# S3
+#----------------------------------------------
+resource "aws_s3_bucket" "openshift_storage" {
+    bucket = "openshift_storage"
+    acl = "private" # Owner gets FULL_CONTROL. No one else has access rights (default).
 
+    tags {
+        Name = "openshift_storage"        
+    }
+}
+
+# {
+#     "Version": "2012-10-17",
+#     "Statement": [
+#         {
+#             "Effect": "Allow",
+#             "Action": "s3:ListAllMyBuckets",
+#             "Resource": "arn:aws:s3:::*"
+#         },
+#         {
+#             "Effect": "Allow",
+#             "Action": [
+#                 "s3:ListBucket",
+#                 "s3:GetBucketLocation"
+#             ],
+#             "Resource": "arn:aws:s3:::<INSERT YOUR BUCKET HERE>"
+#         },
+#         {
+#             "Effect": "Allow",
+#             "Action": [
+#                 "s3:PutObject",
+#                 "s3:GetObject",
+#                 "s3:DeleteObject"
+#             ],
+#             "Resource": "arn:aws:s3:::<INSERT YOUR BUCKET HERE>/*"
+#         }
+#     ]
+# }
 
 
 

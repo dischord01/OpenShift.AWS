@@ -1,5 +1,9 @@
 # file: group_vars/atlanta
 #
 
-domain_name: "cloudworks.io"
-zone_id: "Z17WRPJRU4K2P"
+domain_name: ""
+zone_id: ""
+
+# AWS API Keys for terraform.tfvars file
+aws_access_key: ""
+aws_secret_key: ""

@@ -1,0 +1,8 @@
+# file: roles/aws.s3.storage/vars/main.yml
+---
+#
+
+# AWS API Key with least privilige via IAM to only read/write to S3. 
+aws_access_key_s3: ""
+aws_secret_key_s3: ""
+aws_region: ""        # us-east-1

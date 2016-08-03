@@ -26,6 +26,10 @@
 - name: Install OpenShift with Atomic Installer
   remote_user: ec2-user
   hosts: masters
+  vars:
+    aws_access_key_s3: ""
+    aws_secret_key_s3: ""
+    aws_region: "us-east-1"
   tasks: []
   roles:
   - {role: aws.atomic.install, tags: ["atomic"] }

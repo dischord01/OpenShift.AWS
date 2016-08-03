@@ -1,0 +1,4 @@
+# file: roles/aws.s3.storage/defaults/main.yml
+---
+#
+# foo: default
