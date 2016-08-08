@@ -2,10 +2,10 @@
 ---
 
 # Domain Name you own
-domain_name: ""
-zone_id: ""
+# domain_name: ""
+# zone_id: ""
 
 
 # AWS API Keys for terraform.tfvars file
-aws_access_key: ""
-aws_secret_key: ""
+# aws_access_key: ""
+# aws_secret_key: ""

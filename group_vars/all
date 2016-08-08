@@ -1,9 +1,19 @@
 # file: group_vars/atlanta
 #
 
-domain_name: ""
-zone_id: ""
-
 # AWS API Keys for terraform.tfvars file
 aws_access_key: ""
 aws_secret_key: ""
+domain_name: ""
+zone_id: ""
+
+
+# RHEL Subscription Info:
+username: ""
+password: ""
+pool_id: ""
+
+# AWS S3 Storage Vars
+# aws_access_key_s3: ""
+# aws_secret_key_s3: ""
+# aws_region: "us-east-1"

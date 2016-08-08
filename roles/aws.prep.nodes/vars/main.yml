@@ -6,6 +6,6 @@
 inventory_ose_nodes: "{{ groups['nodes'] }}"
 
 # RHEL Subscription Info:
-username: ""
-password: ""
-pool_id: ""
+# username: ""
+# password: ""
+# pool_id: ""

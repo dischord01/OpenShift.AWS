@@ -55,6 +55,7 @@
 
 - name: subscribe RHN
   redhat_subscription: state=present username='{{ username }}' password='{{ password }}' autosubscribe=true pool='{{ pool_id }}'
+  # retries: 10
   tags:
     - rhel
     

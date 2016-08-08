@@ -3,33 +3,21 @@
 - name: Provision AWS Nodes with Terraform
   hosts: local_target
   vars:
-    # AWS API Keys for terraform.tfvars file
-    aws_access_key: ""
-    aws_secret_key: ""
   roles:
-  - {role: aws.terraform, tags: ["terraform"] }
+  - { role: aws.terraform, tags: ["terraform"] }
 
 
 - name: Install & Configure nodes default settings and packages
   hosts: nodes
   become: yes
-  vars:
-    inventory_ose_nodes: "{{ groups['nodes'] }}"
-    # RHEL Subscription Info:
-    username: ""
-    password: ""
-    pool_id: ""
   roles:
-  - {role: aws.prep.nodes, tags: ["rhel"] }
+  - { role: aws.prep.nodes, tags: ["rhel"] }
 
 
 - name: Install OpenShift with Atomic Installer
   remote_user: ec2-user
   hosts: masters
-  vars:
-    aws_access_key_s3: ""
-    aws_secret_key_s3: ""
-    aws_region: "us-east-1"
   tasks: []
   roles:
-  - {role: aws.atomic.install, tags: ["atomic"] }
+  - { role: aws.atomic.install, tags: ["atomic"] }
+  # - { role: aws.s3.storage, tags: ["s3"] }
