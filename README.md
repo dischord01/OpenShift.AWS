@@ -34,10 +34,14 @@ ansible-galaxy install username.rolename
 
 Scale up pods in console
 
-oc get
-oc get pods
+```
 oc login
 oc get pods
 oc delete pod nodejs-example-1-02re8
+```
+
+View status and configuration
+
+```
 oc config view
 oc status
