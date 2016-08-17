@@ -1,14 +1,9 @@
 # OpenShift.AWS
 
-`OpenShift.AWS` is a great ansible playbook.
+`OpenShift.AWS` is a ansible playbook to install a OpenShift Enterprise 3.2 in AWS. 
+Default number of nodes is `1` master and `2` slave nodes. All variables are stored in the `group_vars/all` file. This includes secrets like AWS API keys and Red Hat subscription info. This playbook also assumes that you will be using your own domain name and have it registered already in AWS. This allows the playbook to use subdomains for all OSE nodes, `master.ose.<yourdomain>.io`. 
 
 # Dependencies
-
-`/etc/ansible/hosts` needs to have entry for localhost. 
-
-```
-localhost ansible_connection=local
-```
 
 Terraform needs to be installed locally
 
@@ -27,11 +22,17 @@ ansible-galaxy install username.rolename
 
 # Usage
 
-## Development (if you used `--vagrant` flag: `vagrant up`
 
-Run `vagrant provision` to provision your vms with Ansible.
-
-## Production
-`ansible-playbook -i inventory site.yml`
+## Provision in AWS 
+`ansible-playbook -i inventory --private-key=id_rsa site.yml`
 
 
+# Demo
+
+Scale up pods in console
+
+oc get
+oc get pods
+oc login
+oc get pods
+oc delete pod nodejs-example-1-02re8
