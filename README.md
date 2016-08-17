@@ -39,3 +39,5 @@ oc get pods
 oc login
 oc get pods
 oc delete pod nodejs-example-1-02re8
+oc config view
+oc status
