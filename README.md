@@ -5,12 +5,15 @@ Default number of nodes is `1` master and `2` slave nodes. All variables are sto
 
 # Dependencies
 
+## Terraform
 Terraform needs to be installed locally
 
 OSX
 ```
 brew install terraform
 ```
+## AWS
+You will need to have provisioned a ssh key (<your_key>.pem) from AWS and place it in the `aws.terraform` folder `OpenShift.AWS/roles/aws.terraform/files/<your_key>.pem`
 
 
 # Install Ansible Roles from [Galaxy](https://galaxy.ansible.com/)
