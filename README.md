@@ -9,17 +9,40 @@ Default number of nodes is `1` master and `2` slave nodes. All variables are sto
 Terraform needs to be installed locally
 
 OSX
+
 ```
 brew install terraform
 ```
+
 ## AWS
-You will need to have provisioned a ssh key (<your_key>.pem) from AWS and place it in the `aws.terraform` folder `OpenShift.AWS/roles/aws.terraform/files/<your_key>.pem`
+This playbook creates a ssh key from AWS and uses it to ssh into the nodes and configure them. This key is placed in `/tmp/terraform/<key_name>`. 
 
+## Setup Var Files
 
-# Install Ansible Roles from [Galaxy](https://galaxy.ansible.com/)
+OpenShift & AWS settings
+
+`group_vars/all`
 
 ```
-ansible-galaxy install username.rolename
+# Domain Name you own
+domain_name: ""
+zone_id: ""
+ssh_keyname: "openshift"
+region: "us-east-1"
+
+# OpenShift
+ose_nodes: "2"
+master_ami_type: "c3.large"
+node_ami_type: "c3.large"
+
+# AWS API Keys for terraform.tfvars file
+aws_access_key: ""
+aws_secret_key: ""
+
+# Subscribe your nodes to Red Hat
+username: ""
+password: ""
+pool_id: ""
 ```
 
 
@@ -27,8 +50,14 @@ ansible-galaxy install username.rolename
 
 
 ## Provision in AWS 
-`ansible-playbook -i inventory --private-key=id_rsa site.yml`
+`ansible-playbook -i inventory site.yml`
 
+## Destroy the Cluster & AWS resources
+
+```
+cd /tmp/terraform
+terraform destroy
+```
 
 # Demo
 

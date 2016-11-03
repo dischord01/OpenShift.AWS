@@ -1,10 +1,37 @@
 ---
-
+#---------------------------------------------------
+#  SSH Key
+#---------------------------------------------------
 - name: Make temporary location to run Terraform
   file: path=/tmp/terraform  state=directory
   tags:
     - terraform
 
+- name: Check for existing key and remove
+  ec2_key: name="{{ ssh_keyname }}" region="{{ region }}" state=absent
+  tags:
+    - terraform
+
+- name: Create EC2 keypair
+  ec2_key: name="{{ ssh_keyname }}" region="{{ region }}"
+  register: ec2_key
+  tags:
+    - terraform
+
+- debug: var=ec2_key
+  tags:
+    - terraform
+
+- name: Create ssh keypair
+  copy: content="{{ ec2_key.key.private_key }}"
+        dest="/tmp/terraform/{{ ssh_keyname }}"
+        mode=0400
+  tags:
+    - terraform
+
+#---------------------------------------------------
+#  Terraform.io
+#---------------------------------------------------
 - name: Template Terraform files locally to run
   template: dest=/tmp/terraform/openshift.tf  src=openshift.tf.j2
   tags:
@@ -12,11 +39,6 @@
 
 - name: Template terraform.tfvars
   template: dest=/tmp/terraform/terraform.tfvars  src=terraform.tfvars.j2
-  tags:
-    - terraform
-
-- name: Copy id_rsa to /tmp/terraform to provision nodes
-  copy: dest=/tmp/terraform/id_rsa mode=400 src=id_rsa
   tags:
     - terraform
 

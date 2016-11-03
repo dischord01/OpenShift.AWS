@@ -4,13 +4,13 @@
 variable "aws_access_key" {}
 variable "aws_secret_key" {}
 variable "security_group" {default = "ose-sg"}
-variable "keypair" {default = "id_rsa"}
-variable "master_instance_type" {default = "c3.large"}
-variable "node_instance_type" {default = "c3.large"}
-variable "aws_region" {default = "us-east-1"}
+variable "keypair" {default = "{{ ssh_keyname }}"}
+variable "master_instance_type" {default = "{{ master_ami_type }}"}
+variable "node_instance_type" {default = "node_ami_type"}
+variable "aws_region" {default = "{{ region }}"}
 variable "ebs_root_block_size" {default = "100"}
 variable "aws_ami" {default = "ami-12663b7a"} # RHEL 7.1=ami-12663b7a, RHEL 7.2=ami-2051294a
-variable "num_nodes" { default = "2" }
+variable "num_nodes" { default = "{{ ose_nodes }}" }
 #----------------------------------------------
 # API Keys
 #----------------------------------------------
